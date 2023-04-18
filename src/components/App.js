@@ -1,16 +1,37 @@
-import React, {Component, useState} from "react";
-import '../styles/App.css';
+import React from "react";
+import { Link, Route, Switch, useLocation } from "react-router-dom";
 
-class App extends Component {
-    render() {
+const About = () => <div>You are on the about page</div>;
+const Home = () => <div>You are home</div>;
+const NoMatch = () => <div>No match</div>;
 
-        return(
-            <div id="main">
-               {/* Do not remove the main div */}
-            </div>
-        )
-    }
-}
+export const LocationDisplay = () => {
+  const location = useLocation();
 
+  return <div data-testid="location-display">{location.pathname}</div>;
+};
 
-export default App;
+const App = () => (
+  <div>
+    <Link to="/">Home</Link>
+
+    <Link to="/about">About</Link>
+
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+
+      <Route path="/about">
+        <About />
+      </Route>
+      <Route>
+        <NoMatch />
+      </Route>
+    </Switch>
+
+    <LocationDisplay />
+  </div>
+);
+
+export default App
